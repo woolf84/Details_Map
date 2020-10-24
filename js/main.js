@@ -40,9 +40,9 @@ function getData(map){
 			// I have this stuff commented out because your data is ... XML? 
 			// But if the features were formatted as GeoJSON, you could use this syntax to grab properties
 			street = feature.feature.properties.STREET;
-			offence = feature.feature.properties.OFFENSE_DESCRIPTION;
+			offense = feature.feature.properties.OFFENSE_DESCRIPTION;
 			when = feature.feature.properties.OCCURRED_ON_DATE;
-			content = "<strong>Incident: </strong>" + offence + "<br>" + "<strong>Time and date: </strong>" + when + "<br>" + "<strong>Street: </strong>" + street;
+			content = "<strong>Incident: </strong>" + offense + "<br>" + "<strong>Time and date: </strong>" + when + "<br>" + "<strong>Street: </strong>" + street;
 			//content = "<strong>Name: </strong>" + name + "<br>" + "<strong>Address: </strong>" + address + "<br>" + "<strong>School type: </strong>" + type;
 			feature.bindPopup(content);
 		}
