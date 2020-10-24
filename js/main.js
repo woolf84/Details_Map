@@ -34,6 +34,15 @@ function getData(map){
 	 success: function(response){
 		 var datapoints = response.features;
 
+		 var incidentsMarkerOptions = {
+			radius : 4,
+			fillColor : "#0000ff",
+			color : "000",
+			weight : 1, 
+			opacity : 1,
+			fillOpacity : .8
+		};
+
 		//function for popup
 		function buildPopupContent(datapoints,feature){
 			name = "Incident:";
@@ -48,9 +57,16 @@ function getData(map){
 		}
 
 		//add geojson layer to map w/ unique symbology
-		var schoolLayer = L.geoJSON(datapoints, {
-			onEachFeature: buildPopupContent
+		var incidentsLayer = L.geoJSON(datapoints, {
+			onEachFeature: buildPopupContent,
+			pointToLayer : function (feature, latlng) {
+				return L.circleMarker(latlng, incidentsMarkerOptions);
+			}
 		}).addTo(map);
+
+		var markersIncidents = L.markerClusterGroup();
+		markersIncidents.addLayer(incidentsLayer);
+		map.addLayer(markersIncidents);
 
 
 
