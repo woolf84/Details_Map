@@ -64,11 +64,6 @@ function getData(map){
 			}
 		}).addTo(map);
 
-		var markersIncidents = L.markerClusterGroup();
-		markersIncidents.addLayer(incidentsLayer);
-		map.addLayer(markersIncidents);
-
-
 
 // THREE IMPORTANT CLOSING BRACKETS AT THE END OF GETDATA() FUNCTION!
 //bracket that closes out the async response. Don't erase!
