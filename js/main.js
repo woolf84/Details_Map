@@ -95,10 +95,14 @@ $.ajax("data/matching_details_subset.geojson",{
 			company = feature.feature.properties.Customer_Name;
 			start = feature.feature.properties.START_DATETIME;
 			end = feature.feature.properties.END_DATETIME;
+			paid = feature.feature.properties.Pay_Amount;
+			worked = feature.feature.properties.Minutes_Worked;
 			content = "<strong>Company: </strong>" + company + "<br>" + "<strong>Start Time and date: </strong>" + start + 
 			"<br>" + "<strong>End Time and date: </strong>" + end + 
 			"<br>" + "<strong>Location: </strong>" + street + 
-			"<br>" + "<strong>Officer: </strong>" + officer;
+			"<br>" + "<strong>Officer: </strong>" + officer +
+			"<br>" + "<strong>Amount paid: </strong>" + paid +
+			"<br>" + "<strong>Minutes worked: </strong>" + worked;
 			//content = "<strong>Name: </strong>" + name + "<br>" + "<strong>Address: </strong>" + address + "<br>" + "<strong>School type: </strong>" + type;
 			feature.bindPopup(content);
 		}
