@@ -79,7 +79,7 @@ $.ajax("data/matching_details_subset.geojson",{
 
 		 var detailMarkerOptions = {
 			radius : 4,
-			fillColor : "#FFFF00",
+			fillColor : "##FF0000",
 			color : "000",
 			weight : 1, 
 			opacity : 1,
