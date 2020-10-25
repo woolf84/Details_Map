@@ -72,12 +72,12 @@ function getData(map){
 });
 
 //part that gets the school data
-$.ajax("data/matching_details_subset_TRUE.geojson",{
+$.ajax("data/matching_details_subset.geojson",{
 	dataType: "json",
 	 success: function(response){
 		 var datapoints = response.features;
 
-		 var incidentsMarkerOptions = {
+		 var detailMarkerOptions = {
 			radius : 4,
 			fillColor : "#FFFF00",
 			color : "000",
@@ -91,18 +91,23 @@ $.ajax("data/matching_details_subset_TRUE.geojson",{
 			// I have this stuff commented out because your data is ... XML? 
 			// But if the features were formatted as GeoJSON, you could use this syntax to grab properties
 			street = feature.feature.properties.address;
-			offense = feature.feature.properties.OFFENSE_DESCRIPTION;
-			when = feature.feature.properties.OCCURRED_ON_DATE;
-			content = "<strong>Incident: </strong>" + offense + "<br>" + "<strong>Time and date: </strong>" + when + "<br>" + "<strong>Street: </strong>" + street;
+			officer = feature.feature.properties.Emp_Name;
+			company = feature.feature.properties.Customer_Name;
+			start = feature.feature.properties.START_DATETIME;
+			end = feature.feature.properties.END_DATETIME;
+			content = "<strong>Company: </strong>" + company + "<br>" + "<strong>Start Time and date: </strong>" + start + 
+			"<br>" + "<strong>End Time and date: </strong>" + end + 
+			"<br>" + "<strong>Location: </strong>" + street + 
+			"<br>" + "<strong>Officer: </strong>" + officer;
 			//content = "<strong>Name: </strong>" + name + "<br>" + "<strong>Address: </strong>" + address + "<br>" + "<strong>School type: </strong>" + type;
 			feature.bindPopup(content);
 		}
 
 		//add geojson layer to map w/ unique symbology
-		var incidentsLayer = L.geoJSON(datapoints, {
+		var detailLayer = L.geoJSON(datapoints, {
 			onEachFeature: buildPopupContent,
 			pointToLayer : function (feature, latlng) {
-				return L.circleMarker(latlng, incidentsMarkerOptions);
+				return L.circleMarker(latlng, detailMarkerOptions);
 			}
 		}).addTo(map);
 
