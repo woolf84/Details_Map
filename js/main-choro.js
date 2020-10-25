@@ -51,11 +51,11 @@ function createMap(){
 		minZoom:4,
 		maxZoom: 21,
 		zoomControl:false
-	});
-
+    });
+    
 	//call getdata function
 	getData(historicalDataMap);
-	historicalDataMap.addControl( L.control.zoom({position: 'bottomright'}) )
+    historicalDataMap.addControl( L.control.zoom({position: 'bottomright'}) )
 };
 
 
@@ -175,7 +175,7 @@ $.ajax("data/neighborhood_incidents.geojson",{
 	 success: function(response){
         var vectors = response.features;
         
-        function buildPopupContent(datapoints,feature){
+        function buildPopupContent(vectors,feature){
             details = feature.feature.properties.NUMPOINTS;
             name = feature.feature.properties.Name;
             content = "<strong>Name: </strong>" + name + "<br>" + "<strong>Number of details: </strong>" + details;
@@ -195,8 +195,10 @@ $.ajax("data/neighborhood_incidents.geojson",{
 		var choroLayer = L.geoJSON(vectors, {
             style: style,
 			onEachFeature: onEachFeature
-        }).addTo(map);
+        });
         
+        detAndInc.addTo(map);
+
         var dataLayers = {
             "Incidents and details": detAndInc,
             "Incidents by Neighborhood": choroLayer
