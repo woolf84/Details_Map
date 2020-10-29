@@ -11,13 +11,12 @@ function createMap(){
 		zoomControl:false
 	});
 
+	L.geoJSON(neighborhoodCount).addTo(historicalDataMap);
+	
 	//call getdata function
 	getData(historicalDataMap);
 	historicalDataMap.addControl( L.control.zoom({position: 'bottomright'}) )
 };
-
-L.geoJSON(neighborhoodCount).addTo(historicalDataMap);
-
 
 //function to retrieve map data and place it on the map
 function getData(map){
