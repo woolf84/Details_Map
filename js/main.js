@@ -1,21 +1,19 @@
 // declare map in global scope
-var historicalDataMap;
+var detailsMap;
 
 //instantiate map 
 function createMap(){
-	 historicalDataMap = L.map('map',{
+	detailsMap = L.map('map',{
 		center: [42.350,-71.065],
 		zoom: 14,
 		minZoom:4,
 		maxZoom: 21,
 		zoomControl:false
 	});
-
-	L.geoJSON(neighborhoodCount).addTo(historicalDataMap);
 	
 	//call getdata function
-	getData(historicalDataMap);
-	historicalDataMap.addControl( L.control.zoom({position: 'bottomright'}) )
+	getData(detailsMap);
+	detailsMap.addControl( L.control.zoom({position: 'bottomright'}) )
 };
 
 //function to retrieve map data and place it on the map
@@ -25,11 +23,11 @@ function getData(map){
 		minZoom: 0,
 		maxZoom: 21,
 		ext: 'png'
-}).addTo(historicalDataMap);
+}).addTo(detailsMap);
 
 
 
-//part that gets the school data
+//part that gets the data
  $.ajax("data/incidents_true.geojson",{
 	dataType: "json",
 	 success: function(response){
@@ -72,7 +70,7 @@ function getData(map){
 //bracket that closes out the async call function. Don't erase!
 });
 
-//part that gets the school data
+//part that gets the data
 $.ajax("data/matching_details_subset.geojson",{
 	dataType: "json",
 	 success: function(response){
@@ -89,8 +87,6 @@ $.ajax("data/matching_details_subset.geojson",{
 
 		//function for popup
 		function buildPopupContent(datapoints,feature){
-			// I have this stuff commented out because your data is ... XML? 
-			// But if the features were formatted as GeoJSON, you could use this syntax to grab properties
 			street = feature.feature.properties.address;
 			officer = feature.feature.properties.Emp_Name;
 			company = feature.feature.properties.Customer_Name;
@@ -104,7 +100,7 @@ $.ajax("data/matching_details_subset.geojson",{
 			"<br>" + "<strong>Officer: </strong>" + officer +
 			"<br>" + "<strong>Amount paid: </strong>" + paid +
 			"<br>" + "<strong>Minutes worked: </strong>" + worked;
-			//content = "<strong>Name: </strong>" + name + "<br>" + "<strong>Address: </strong>" + address + "<br>" + "<strong>School type: </strong>" + type;
+			//bind the content
 			feature.bindPopup(content);
 		}
 
