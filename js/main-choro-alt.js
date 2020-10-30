@@ -136,5 +136,24 @@ function buildIncidentPopup(datapoints,feature){
         "Incidents by Neighborhood": tractsLayer
     };
 
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            grades = [0, 7, 18, 33, 54, 110, 191],
+            labels = [];
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+        };
+
+    legend.addTo(map);
     L.control.layers(allLayers, null, { collapsed: false }).addTo(map);
 });
