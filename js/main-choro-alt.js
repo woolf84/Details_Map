@@ -72,7 +72,7 @@ function style(feature) {
     return {
         fillColor: getColor(feature.properties.NUMPOINTS),
         weight: 2,
-        opacity: 3,
+        opacity: .7,
         color: 'white',
         dashArray: '3',
         fillOpacity: 0.7
