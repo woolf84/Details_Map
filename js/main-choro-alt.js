@@ -83,17 +83,45 @@ function onEachTract(feature, layer) {
     layer.bindPopup("Incidents within .1 km of a detail: " + feature.properties.NUMPOINTS);
 };
 
+//function for popup
+function buildDetailPopup(datapoints,feature){
+	street = feature.feature.properties.address;
+	officer = feature.feature.properties.Emp_Name;
+	company = feature.feature.properties.Customer_Name;
+	start = feature.feature.properties.START_DATETIME;
+	end = feature.feature.properties.END_DATETIME;
+	paid = feature.feature.properties.Pay_Amount;
+	worked = feature.feature.properties.Minutes_Worked;
+	content = "<strong>Company: </strong>" + company + "<br>" + "<strong>Start Time and date: </strong>" + start + 
+	"<br>" + "<strong>End Time and date: </strong>" + end + 
+	"<br>" + "<strong>Location: </strong>" + street + 
+	"<br>" + "<strong>Officer: </strong>" + officer +
+	"<br>" + "<strong>Amount paid: </strong>" + paid +
+	"<br>" + "<strong>Minutes worked: </strong>" + worked;
+	feature.bindPopup(content);
+};
+
+function buildIncidentPopup(datapoints,feature){
+	street = feature.feature.properties.STREET;
+	offense = feature.feature.properties.OFFENSE_DESCRIPTION;
+	when = feature.feature.properties.OCCURRED_ON_DATE;
+    content = "<strong>Incident: </strong>" + offense + "<br>" + "<strong>Time and date: </strong>" + when + "<br>" + "<strong>Street: </strong>" + street;
+    feature.bindPopup(content);
+};
+
 // Add requested external GeoJSON to map
     var tractsLayer = L.geoJSON(tracts.responseJSON, {
         style: style, 
         onEachFeature: onEachTract
     }).addTo(map);
     var incidentsLayer = L.geoJSON(incidentPoints.responseJSON, {
+        onEachFeature: onEachTract,
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, incidentsMarkerOptions);
         }
     });
     var detailLayer = L.geoJSON(detailPoints.responseJSON, {
+        onEachFeature: buildIncidentPopup,
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, detailMarkerOptions);
         }
