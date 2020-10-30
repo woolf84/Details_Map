@@ -59,12 +59,12 @@ $.when(tracts, incidentPoints, detailPoints).done(function() {
 }).addTo(map);
 
 function getColor(d) {
-    return d > 3475 ? '#800026' :
-           d > 1262  ? '#BD0026' :
-           d > 789  ? '#E31A1C' :
-           d > 466  ? '#FC4E2A' :
-           d > 257   ? '#FD8D3C' :
-           d > 110   ? '#FEB24C' :
+    return d > 191 ? '#800026' :
+           d > 110  ? '#BD0026' :
+           d > 54  ? '#E31A1C' :
+           d > 33  ? '#FC4E2A' :
+           d > 18   ? '#FD8D3C' :
+           d > 7   ? '#FEB24C' :
                       '#FFEDA0';
 };
 
@@ -104,7 +104,9 @@ function onEachTract(feature, layer) {
     var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
 
     var allLayers = {
-        "Incidents and details": pointLayers,
+//        "Incidents and details": pointLayers,
+        "Incidents": incidentsLayer,
+        "Details": detailLayer,
         "Incidents by Neighborhood": tractsLayer
     };
 
