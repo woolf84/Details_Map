@@ -1,3 +1,21 @@
+var detailMarkerOptions = {
+    radius : 4,
+    fillColor : "##FF0000",
+    color : "000",
+    weight : 1, 
+    opacity : 1,
+    fillOpacity : .8
+};
+
+var incidentsMarkerOptions = {
+    radius : 4,
+    fillColor : "#0000ff",
+    color : "000",
+    weight : 1, 
+    opacity : 1,
+    fillOpacity : .8
+};
+
 var tracts = $.ajax({
     url: "data/Incidents_True_CensusTracts.geojson",
     dataType: "json",
@@ -39,11 +57,49 @@ $.when(tracts, incidentPoints, detailPoints).done(function() {
 		maxZoom: 21,
 		ext: 'png'
 }).addTo(map);
- 
+
+function getColor(d) {
+    return d > 3475 ? '#800026' :
+           d > 1262  ? '#BD0026' :
+           d > 789  ? '#E31A1C' :
+           d > 466  ? '#FC4E2A' :
+           d > 257   ? '#FD8D3C' :
+           d > 110   ? '#FEB24C' :
+                      '#FFEDA0';
+};
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.NUMPOINTS),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}; 
+
+function onEachTract(feature, layer) {
+    layer.on(
+        //{click: }
+    );
+};
+
 // Add requested external GeoJSON to map
-    var tractsLayer = L.geoJSON(tracts.responseJSON).addTo(map);
-    var incidentsLayer = L.geoJSON(incidentPoints.responseJSON).addTo(map);
-    var detailLayer = L.geoJSON(detailPoints.responseJSON).addTo(map);
+    var tractsLayer = L.geoJSON(tracts.responseJSON, {
+        style: style
+        //, onEachFeature: onEachTract
+    }).addTo(map);
+    var incidentsLayer = L.geoJSON(incidentPoints.responseJSON, {
+        pointToLayer : function (feature, latlng) {
+            return L.circleMarker(latlng, incidentsMarkerOptions);
+        }
+    }).addTo(map);
+    var detailLayer = L.geoJSON(detailPoints.responseJSON, {
+        pointToLayer : function (feature, latlng) {
+            return L.circleMarker(latlng, detailMarkerOptions);
+        }
+    }).addTo(map);
 
     var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
 
