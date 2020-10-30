@@ -115,13 +115,13 @@ function buildIncidentPopup(datapoints,feature){
         onEachFeature: onEachTract
     }).addTo(map);
     var incidentsLayer = L.geoJSON(incidentPoints.responseJSON, {
-        onEachFeature: onEachTract,
+        onEachFeature: buildIncidentPopup,
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, incidentsMarkerOptions);
         }
     });
     var detailLayer = L.geoJSON(detailPoints.responseJSON, {
-        onEachFeature: buildIncidentPopup,
+        onEachFeature: buildDetailPopup,
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, detailMarkerOptions);
         }
