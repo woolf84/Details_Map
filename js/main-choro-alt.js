@@ -72,7 +72,7 @@ function style(feature) {
     return {
         fillColor: getColor(feature.properties.NUMPOINTS),
         weight: 2,
-        opacity: 1,
+        opacity: 3,
         color: 'white',
         dashArray: '3',
         fillOpacity: 0.7
@@ -80,7 +80,7 @@ function style(feature) {
 }; 
 
 function onEachTract(feature, layer) {
-    layer.bindPopup("Incidents within .1 km of a detail: " + feature.properties.NUMPOINTS);
+    layer.bindPopup("<strong>Incidents within .1 km of a detail</strong>: " + feature.properties.NUMPOINTS);
 };
 
 //function for popup
