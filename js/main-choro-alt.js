@@ -80,26 +80,24 @@ function style(feature) {
 }; 
 
 function onEachTract(feature, layer) {
-    layer.on(
-        //{click: }
-    );
+    layer.bindPopup("Incidents within .1 km of a detail: " + feature.properties.NUMPOINTS);
 };
 
 // Add requested external GeoJSON to map
     var tractsLayer = L.geoJSON(tracts.responseJSON, {
-        style: style
-        //, onEachFeature: onEachTract
+        style: style, 
+        onEachFeature: onEachTract
     }).addTo(map);
     var incidentsLayer = L.geoJSON(incidentPoints.responseJSON, {
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, incidentsMarkerOptions);
         }
-    }).addTo(map);
+    });
     var detailLayer = L.geoJSON(detailPoints.responseJSON, {
         pointToLayer : function (feature, latlng) {
             return L.circleMarker(latlng, detailMarkerOptions);
         }
-    }).addTo(map);
+    });
 
     var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
 
