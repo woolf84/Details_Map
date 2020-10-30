@@ -42,9 +42,15 @@ $.when(tracts, incidentPoints, detailPoints).done(function() {
  
 // Add requested external GeoJSON to map
     var tractsLayer = L.geoJSON(tracts.responseJSON).addTo(map);
-
     var incidentsLayer = L.geoJSON(incidentPoints.responseJSON).addTo(map);
-
     var detailLayer = L.geoJSON(detailPoints.responseJSON).addTo(map);
 
+    var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
+
+    var allLayers = {
+        "Incidents and details": pointLayers,
+        "Incidents by Neighborhood": tractsLayer
+    };
+
+    L.control.layers(allLayers, null, { collapsed: false }).addTo(map);
 });
