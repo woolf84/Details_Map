@@ -135,6 +135,7 @@ function buildIncidentPopup(datapoints,feature){
     };
 
     var choroLayers = {
+        "Regular Map" : basemap,
         "Incidents near a detail, by Neighborhood": tractsLayer
     }
     var legend = L.control({position: 'bottomright'});
