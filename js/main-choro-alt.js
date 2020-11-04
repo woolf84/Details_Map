@@ -129,15 +129,12 @@ function buildIncidentPopup(datapoints,feature){
 
     var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
 
-    var overLayers = {
-        "Incidents near a detail": incidentsLayer,
-        "Details subset": detailLayer
+    var allLayers = {
+        "Incidents near details": incidentsLayer,
+        "Details, subset": detailLayer,
+        "Incidents near details, by Neighborhood": tractsLayer
     };
 
-    var choroLayers = {
-        "Regular Map" : basemap,
-        "Incidents near a detail, by Neighborhood": tractsLayer
-    }
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function (map) {
@@ -157,5 +154,5 @@ function buildIncidentPopup(datapoints,feature){
         };
 
     legend.addTo(map);
-    L.control.layers(choroLayers, overLayers, { collapsed: false }).addTo(map);
+    L.control.layers(null, allLayers, { collapsed: false }).addTo(map);
 });
