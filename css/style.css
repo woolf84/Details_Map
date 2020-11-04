@@ -13,9 +13,10 @@ html, body{
 	bottom:0;
 }
 .legend {
+  padding: 6px 8px;
   line-height: 18px;
   color: #555;
-  background-color: #FFFEF2;
+  background: white;
 }
 .legend i {
   width: 18px;

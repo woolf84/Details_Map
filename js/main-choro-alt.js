@@ -65,6 +65,7 @@ function getColor(d) {
            d > 33  ? '#FC4E2A' :
            d > 18   ? '#FD8D3C' :
            d > 7   ? '#FEB24C' :
+           d > 1   ? '#FED976' :
                       '#FFEDA0';
 };
 
@@ -127,8 +128,6 @@ function buildIncidentPopup(datapoints,feature){
         }
     });
 
-    var pointLayers = L.layerGroup([incidentsLayer, detailPoints]);
-
     var allLayers = {
         "Incidents near details": incidentsLayer,
         "Details, subset": detailLayer,
@@ -140,7 +139,7 @@ function buildIncidentPopup(datapoints,feature){
     legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 7, 18, 33, 54, 110, 191],
+            grades = [0, 1, 7, 18, 33, 54, 110, 191],
             labels = [];
 
         // loop through our density intervals and generate a label with a colored square for each interval
