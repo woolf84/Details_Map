@@ -54,7 +54,9 @@ $.when(tracts, incidentPoints, detailPoints).done(function() {
 
     var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		minZoom: 0,
-		maxZoom: 21,
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+		'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
 		ext: 'png'
 }).addTo(map);
 
